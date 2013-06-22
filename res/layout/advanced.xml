@@ -13,4 +13,31 @@ Note: You must use the following id's for this list of UI Components defined in
 	 This Root element is here as a place holder to prevent compilation
      errors.
 -->
-<LinearLayout></LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/newJokeEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="@string/text_add_joke" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/addJokeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_joke" />
+	
+	<LinearLayout android:id="@+id/jokeListViewGroup"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+	</LinearLayout>
+	
+</LinearLayout>

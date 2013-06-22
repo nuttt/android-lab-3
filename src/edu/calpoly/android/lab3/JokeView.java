@@ -1,12 +1,15 @@
 package edu.calpoly.android.lab3;
 
 import android.content.Context;
-import android.view.View;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class JokeView extends View {
+public class JokeView extends ViewGroup {
 
 	/** Radio buttons for liking or disliking a joke. */
 	private RadioButton m_vwLikeButton;
@@ -32,7 +35,29 @@ public class JokeView extends View {
 	 */
 	public JokeView(Context context, Joke joke) {
 		super(context);
-		// TODO
+		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(R.layout.joke_view, this, true);
+		
+		m_vwLikeButton = (RadioButton) findViewById(R.id.likeButton);
+		m_vwDislikeButton = (RadioButton) findViewById(R.id.dislikeButton);
+		m_vwLikeGroup = (RadioGroup) findViewById(R.id.ratingRadioGroup);
+		m_vwJokeText = (TextView) findViewById(R.id.jokeTextView);
+		
+		setJoke(joke);
+		requestLayout();
+		
+		m_vwLikeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				RadioButton c = (RadioButton) findViewById(checkedId);
+				if(checkedId == R.id.likeButton){
+					m_vwLikeButton.setChecked(true);
+				}
+				else if(checkedId == R.id.dislikeButton){
+					m_vwDislikeButton.setChecked(true);
+				}
+			}
+		});
 	}
 
 	/**
@@ -43,6 +68,21 @@ public class JokeView extends View {
 	 *            The Joke object which this View will display.
 	 */
 	public void setJoke(Joke joke) {
-		// TODO
+		m_joke = joke;
+		m_vwJokeText.setText(joke.getJoke());
+		m_vwJokeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
+		
+		m_vwLikeGroup.clearCheck();
+		if(joke.getRating() == 1){
+			m_vwLikeButton.setChecked(true);
+		}
+		else if(joke.getRating() == 2){
+			m_vwDislikeButton.setChecked(true);
+		}
+	}
+
+	@Override
+	protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
+		
 	}
 }

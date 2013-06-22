@@ -70,7 +70,7 @@ public class AdvancedJokeList extends Activity {
 		Resources res = this.getResources();
 		m_nDarkColor = res.getColor(R.color.dark);
 		m_nLightColor = res.getColor(R.color.light);
-		m_nTextColor = res.getColor(R.color.text);
+		m_nTextColor = res.getColor(R.color.dark);
 		m_nCurrentColor = m_nDarkColor;
 		m_arrJokeList = new ArrayList<Joke>();
 		initLayout();
@@ -79,7 +79,6 @@ public class AdvancedJokeList extends Activity {
 		for(int i=0; i < jokes.length; i++){
 			Joke j = new Joke(jokes[i], "Vee");
 			addJoke(j);
-			m_arrJokeList.add(j);
 		}
 	}
 	
@@ -94,7 +93,14 @@ public class AdvancedJokeList extends Activity {
 	 * Layout for this Activity.
 	 */
 	protected void initLayout() {
-
+		
+		this.setContentView(R.layout.advanced);
+		
+		this.m_vwJokeLayout = (LinearLayout) findViewById(R.id.jokeListViewGroup);
+		this.m_vwJokeEditText = (EditText) findViewById(R.id.newJokeEditText);
+		this.m_vwJokeButton = (Button) findViewById(R.id.addJokeButton);
+		
+		/*
 		LinearLayout lv = new LinearLayout(this);
 		lv.setOrientation(LinearLayout.VERTICAL);
 
@@ -121,6 +127,7 @@ public class AdvancedJokeList extends Activity {
 		lv.addView(sw);
 		
 		this.setContentView(lv);
+		*/
 	}
 
 	/**
@@ -140,7 +147,6 @@ public class AdvancedJokeList extends Activity {
 					Joke joke = new Joke(jokeText, "Vee");
 					m_vwJokeEditText.setText("");
 					addJoke(joke);
-					m_arrJokeList.add(joke);
 					
 					InputMethodManager imm = (InputMethodManager)
 							getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -157,7 +163,6 @@ public class AdvancedJokeList extends Activity {
 				Joke joke = new Joke(jokeText, "Vee");
 				m_vwJokeEditText.setText("");
 				addJoke(joke);
-				m_arrJokeList.add(joke);
 				
 				InputMethodManager imm = (InputMethodManager)
 						getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -174,6 +179,9 @@ public class AdvancedJokeList extends Activity {
 	 *            The Joke to add to list of Jokes.
 	 */
 	protected void addJoke(Joke joke) {
+		m_vwJokeLayout.addView(new JokeView(this, joke));
+		m_arrJokeList.add(joke);
+		/*
 		TextView tw = new TextView(this);
 		tw.setText(joke.getJoke());
 		tw.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
@@ -185,6 +193,6 @@ public class AdvancedJokeList extends Activity {
 		else{
 			m_nCurrentColor = m_nDarkColor;
 		}
-		m_vwJokeLayout.addView(tw);
+		m_vwJokeLayout.addView(tw);*/
 	}
 }
