@@ -183,6 +183,7 @@ public class AdvancedJokeList extends Activity {
 		m_arrJokeList.add(joke);
 		/*
 		TextView tw = new TextView(this);
+		m_arrJokeList.add(joke);
 		tw.setText(joke.getJoke());
 		tw.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
 		tw.setBackgroundColor(m_nCurrentColor);

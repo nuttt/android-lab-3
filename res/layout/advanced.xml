@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-Note: You must use the following id's for this list of UI Components defined in
-	  AdvancedJokeList.java 
-	  	UI Component 					Required Resource ID
-	  	....................................................
-		EditText m_vwJokeEditText: 		"newJokeEditText"
-		Button m_vwJokeButton: 			"addJokeButton"
-		LinearLayout m_vwJokeLayout: 	"jokeListViewGroup"
--->
-
-<!--
-	 This Root element is here as a place holder to prevent compilation
-     errors.
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/newJokeEditText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/text_add_joke" >
+        android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/newJokeEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_add_joke" />
 
-    <Button
-        android:id="@+id/addJokeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_joke" />
-	
-	<LinearLayout android:id="@+id/jokeListViewGroup"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			
-	</LinearLayout>
-	
+        <Button
+            android:id="@+id/addJokeButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/add_joke" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/jokeListViewGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

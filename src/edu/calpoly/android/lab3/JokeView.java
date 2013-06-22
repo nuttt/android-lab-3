@@ -3,13 +3,13 @@ package edu.calpoly.android.lab3;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class JokeView extends ViewGroup {
+public class JokeView extends LinearLayout {
 
 	/** Radio buttons for liking or disliking a joke. */
 	private RadioButton m_vwLikeButton;
@@ -70,7 +70,7 @@ public class JokeView extends ViewGroup {
 	public void setJoke(Joke joke) {
 		m_joke = joke;
 		m_vwJokeText.setText(joke.getJoke());
-		m_vwJokeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
+		m_vwJokeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 26);
 		
 		m_vwLikeGroup.clearCheck();
 		if(joke.getRating() == 1){
@@ -81,8 +81,4 @@ public class JokeView extends ViewGroup {
 		}
 	}
 
-	@Override
-	protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
-		
-	}
 }
