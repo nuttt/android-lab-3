@@ -3,11 +3,21 @@ package edu.calpoly.android.lab3;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class AdvancedJokeList extends Activity {
 
@@ -40,6 +50,8 @@ public class AdvancedJokeList extends Activity {
 	 *  of Jokes. Add a third for text color if necessary. */
 	protected int m_nDarkColor;
 	protected int m_nLightColor;
+	protected int m_nTextColor;
+	protected int m_nCurrentColor;
 		
 	/**
 	 * Context-Menu MenuItem IDs.
@@ -55,7 +67,20 @@ public class AdvancedJokeList extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// TODO
+		Resources res = this.getResources();
+		m_nDarkColor = res.getColor(R.color.dark);
+		m_nLightColor = res.getColor(R.color.light);
+		m_nTextColor = res.getColor(R.color.text);
+		m_nCurrentColor = m_nDarkColor;
+		m_arrJokeList = new ArrayList<Joke>();
+		initLayout();
+		initAddJokeListeners();
+		String[] jokes = res.getStringArray(R.array.jokeList);
+		for(int i=0; i < jokes.length; i++){
+			Joke j = new Joke(jokes[i], "Vee");
+			addJoke(j);
+			m_arrJokeList.add(j);
+		}
 	}
 	
 	@Override
@@ -69,7 +94,33 @@ public class AdvancedJokeList extends Activity {
 	 * Layout for this Activity.
 	 */
 	protected void initLayout() {
-		// TODO
+
+		LinearLayout lv = new LinearLayout(this);
+		lv.setOrientation(LinearLayout.VERTICAL);
+
+		LinearLayout lh = new LinearLayout(this);
+		lh.setOrientation(LinearLayout.HORIZONTAL);
+		
+		m_vwJokeButton = new Button(this);
+		m_vwJokeButton.setText("Add Joke");
+		
+		m_vwJokeEditText = new EditText(this);
+		LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+		m_vwJokeEditText.setLayoutParams(param);
+		
+		lh.addView(m_vwJokeButton);
+		lh.addView(m_vwJokeEditText);
+
+		m_vwJokeLayout = new LinearLayout(this);
+		m_vwJokeLayout.setOrientation(LinearLayout.VERTICAL);
+		
+		ScrollView sw = new ScrollView(this);
+		sw.addView(m_vwJokeLayout);
+		
+		lv.addView(lh);
+		lv.addView(sw);
+		
+		this.setContentView(lv);
 	}
 
 	/**
@@ -78,7 +129,41 @@ public class AdvancedJokeList extends Activity {
 	 * list.
 	 */
 	protected void initAddJokeListeners() {
-		// TODO
+		
+		m_vwJokeEditText.setOnKeyListener(new OnKeyListener() {
+
+			public boolean onKey(View v, int keyCode, KeyEvent event){
+				if((event.getAction() == KeyEvent.ACTION_DOWN) &&
+				   (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+				  ){
+					String jokeText = m_vwJokeEditText.getText().toString();
+					Joke joke = new Joke(jokeText, "Vee");
+					m_vwJokeEditText.setText("");
+					addJoke(joke);
+					m_arrJokeList.add(joke);
+					
+					InputMethodManager imm = (InputMethodManager)
+							getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(m_vwJokeEditText.getWindowToken(), 0);
+				}
+				return true;
+			}
+		});
+		
+		m_vwJokeButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				String jokeText = m_vwJokeEditText.getText().toString();
+				m_vwJokeEditText.setText("");
+				Joke joke = new Joke(jokeText, "Vee");
+				m_vwJokeEditText.setText("");
+				addJoke(joke);
+				m_arrJokeList.add(joke);
+				
+				InputMethodManager imm = (InputMethodManager)
+						getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(m_vwJokeEditText.getWindowToken(), 0);
+			}
+		});
 	}
 
 	/**
@@ -89,6 +174,17 @@ public class AdvancedJokeList extends Activity {
 	 *            The Joke to add to list of Jokes.
 	 */
 	protected void addJoke(Joke joke) {
-		// TODO
+		TextView tw = new TextView(this);
+		tw.setText(joke.getJoke());
+		tw.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
+		tw.setBackgroundColor(m_nCurrentColor);
+		tw.setTextColor(m_nTextColor);
+		if(m_nCurrentColor == m_nDarkColor){
+			m_nCurrentColor = m_nLightColor;
+		}
+		else{
+			m_nCurrentColor = m_nDarkColor;
+		}
+		m_vwJokeLayout.addView(tw);
 	}
 }

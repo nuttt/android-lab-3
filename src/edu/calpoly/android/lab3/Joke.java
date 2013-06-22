@@ -25,7 +25,6 @@ public class Joke {
 	 * of UNRATED.
 	 */
 	public Joke() {
-		// TODO
 		m_strJoke = "";
 		m_nRating = Joke.UNRATED;
 		m_strAuthorName = "";
@@ -42,8 +41,8 @@ public class Joke {
 	 *            The name of the Author of this Joke.
 	 */
 	public Joke(String strJoke, String strAuthor) {
-		// TODO
 		this.m_strJoke = strJoke;
+		this.m_strAuthorName = strAuthor;
 		this.m_nRating = Joke.UNRATED;
 	}
 
@@ -60,7 +59,9 @@ public class Joke {
 	 *            Rating value to initialize the rating of this joke.
 	 */
 	public Joke(String strJoke, String strAuthor, int nRating) {
-		// TODO
+		this.m_strJoke = strJoke;
+		this.m_nRating = nRating;
+		this.m_strAuthorName = strAuthor;
 	}
 
 	/**
@@ -69,8 +70,7 @@ public class Joke {
 	 * @return A String value containing the text of this joke.
 	 */
 	public String getJoke() {
-		// TODO
-		return null;
+		return m_strJoke;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Joke {
 	 *            The text of this joke.
 	 */
 	public void setJoke(String strJoke) {
-		// TODO
+		m_strJoke = strJoke;
 	}
 
 	/**
@@ -89,8 +89,7 @@ public class Joke {
 	 * @return An integer value containing one of the possible rating constants.
 	 */
 	public int getRating() {
-		// TODO
-		return 0;
+		return m_nRating;
 	}
 
 	/**
@@ -100,7 +99,7 @@ public class Joke {
 	 *            One of the possible rating constants.
 	 */
 	public void setRating(int rating) {
-		// TODO
+		m_nRating = rating;
 	}
 
 	/**
@@ -109,8 +108,7 @@ public class Joke {
 	 * @return A String containing the Authors name.
 	 */
 	public String getAuthor() {
-		// TODO
-		return null;
+		return m_strAuthorName;
 	}
 
 	/**
@@ -120,7 +118,7 @@ public class Joke {
 	 *            A String containing the Authors name.
 	 */
 	public void setAuthor(String strAuthor) {
-		// TODO
+		m_strAuthorName = strAuthor;
 	}
 
 	/**
@@ -130,8 +128,7 @@ public class Joke {
 	 */
 	@Override
 	public String toString() {
-		// TODO
-		return null;
+		return getJoke();
 	}
 
 	/**
@@ -155,7 +152,12 @@ public class Joke {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		// TODO
-		return false;
+		if(obj instanceof Joke){
+			return m_strJoke.equals(((Joke)obj).toString()) && 
+					m_strAuthorName.equals(((Joke)obj).getAuthor());
+		}
+		else{
+			return false;
+		}
 	}
 }
