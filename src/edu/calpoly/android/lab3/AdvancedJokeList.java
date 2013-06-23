@@ -27,7 +27,7 @@ import com.actionbarsherlock.view.SubMenu;
 
 public class AdvancedJokeList extends SherlockActivity {
 
-	public SherlockActivity activity;
+	public AdvancedJokeList activity;
 	/** Contains the name of the Author for the jokes. */
 	protected String m_strAuthorName;
 
