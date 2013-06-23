@@ -1,8 +1,10 @@
 package edu.calpoly.android.lab3;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -61,6 +63,15 @@ public class JokeView extends LinearLayout {
 				}
 			}
 		});
+		
+		/*m_vwJokeText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Log.d("me", "Joketext");
+			}
+		});*/
 	}
 
 	/**

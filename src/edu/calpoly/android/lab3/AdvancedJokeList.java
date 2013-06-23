@@ -184,13 +184,13 @@ public class AdvancedJokeList extends SherlockActivity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
-				Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
-				/*if (m_actionMode != null) {
+				//Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
+				if (m_actionMode != null) {
 					return false;
 				}
 				
 				m_actionMode = activity.startActionMode(m_actionModeCallback);
-				arg1.setSelected(true);*/
+				arg1.setSelected(true);
 				return true;
 			}
 
