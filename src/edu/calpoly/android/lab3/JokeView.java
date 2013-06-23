@@ -43,6 +43,7 @@ public class JokeView extends LinearLayout {
 		m_vwLikeGroup = (RadioGroup) findViewById(R.id.ratingRadioGroup);
 		m_vwJokeText = (TextView) findViewById(R.id.jokeTextView);
 		
+		m_joke = joke;
 		setJoke(joke);
 		requestLayout();
 		
@@ -52,9 +53,11 @@ public class JokeView extends LinearLayout {
 				RadioButton c = (RadioButton) findViewById(checkedId);
 				if(checkedId == R.id.likeButton){
 					m_vwLikeButton.setChecked(true);
+					m_joke.setRating(Joke.LIKE);
 				}
 				else if(checkedId == R.id.dislikeButton){
 					m_vwDislikeButton.setChecked(true);
+					m_joke.setRating(Joke.DISLIKE);
 				}
 			}
 		});
