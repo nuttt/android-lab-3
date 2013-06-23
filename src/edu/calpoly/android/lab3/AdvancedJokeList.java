@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -16,8 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.ListView;
 
 public class AdvancedJokeList extends Activity {
 
@@ -34,7 +32,7 @@ public class AdvancedJokeList extends Activity {
 	protected JokeListAdapter m_jokeAdapter;
 
 	/** ViewGroup used for maintaining a list of Views that each display Jokes. */
-	protected LinearLayout m_vwJokeLayout;
+	protected ListView m_vwJokeLayout;
 
 	/** EditText used for entering text for a new Joke to be added to m_arrJokeList. */
 	protected EditText m_vwJokeEditText;
@@ -73,6 +71,7 @@ public class AdvancedJokeList extends Activity {
 		m_nTextColor = res.getColor(R.color.dark);
 		m_nCurrentColor = m_nDarkColor;
 		m_arrJokeList = new ArrayList<Joke>();
+		m_jokeAdapter = new JokeListAdapter(this, m_arrJokeList);
 		initLayout();
 		initAddJokeListeners();
 		String[] jokes = res.getStringArray(R.array.jokeList);
@@ -82,11 +81,6 @@ public class AdvancedJokeList extends Activity {
 		}
 	}
 	
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO
-        return true;
-    }
 
 	/**
 	 * Method is used to encapsulate the code that initializes and sets the
@@ -96,7 +90,8 @@ public class AdvancedJokeList extends Activity {
 		
 		this.setContentView(R.layout.advanced);
 		
-		this.m_vwJokeLayout = (LinearLayout) findViewById(R.id.jokeListViewGroup);
+		this.m_vwJokeLayout = (ListView) findViewById(R.id.jokeListViewGroup);
+		this.m_vwJokeLayout.setAdapter(m_jokeAdapter); 
 		this.m_vwJokeEditText = (EditText) findViewById(R.id.newJokeEditText);
 		this.m_vwJokeButton = (Button) findViewById(R.id.addJokeButton);
 		
@@ -179,8 +174,9 @@ public class AdvancedJokeList extends Activity {
 	 *            The Joke to add to list of Jokes.
 	 */
 	protected void addJoke(Joke joke) {
-		m_vwJokeLayout.addView(new JokeView(this, joke));
+		//m_vwJokeLayout.addView(new JokeView(this, joke));
 		m_arrJokeList.add(joke);
+		m_jokeAdapter.notifyDataSetChanged();
 		/*
 		TextView tw = new TextView(this);
 		m_arrJokeList.add(joke);
