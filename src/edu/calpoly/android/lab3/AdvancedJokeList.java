@@ -71,6 +71,8 @@ public class AdvancedJokeList extends SherlockActivity {
 	protected static final int FILTER_UNRATED = SubMenu.FIRST + 2;
 	protected static final int FILTER_SHOW_ALL = SubMenu.FIRST + 3;
 
+	private int m_selectedId;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -191,6 +193,7 @@ public class AdvancedJokeList extends SherlockActivity {
 				
 				m_actionMode = activity.startActionMode(m_actionModeCallback);
 				arg1.setSelected(true);
+				m_selectedId = arg2;
 				return true;
 			}
 
@@ -240,7 +243,6 @@ public class AdvancedJokeList extends SherlockActivity {
 		switch( item.getItemId() ) {
 			case R.id.submenu_show_all:
 				m_arrFilteredJokeList.clear();
-				Toast.makeText(this, "Show all", Toast.LENGTH_SHORT).show();
 				for(int i=0; i<m_arrJokeList.size(); i++){
 					Joke j = m_arrJokeList.get(i);
 					m_arrFilteredJokeList.add(j);
@@ -249,7 +251,6 @@ public class AdvancedJokeList extends SherlockActivity {
 				return true;
 			case R.id.submenu_like:
 				m_arrFilteredJokeList.clear();
-				Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show();
 				for(int i=0; i<m_arrJokeList.size(); i++){
 					Joke j = m_arrJokeList.get(i);
 					if(j.getRating() == Joke.LIKE){
@@ -260,7 +261,6 @@ public class AdvancedJokeList extends SherlockActivity {
 				return true;
 			case R.id.submenu_dislike:
 				m_arrFilteredJokeList.clear();
-				Toast.makeText(this, "Dislike", Toast.LENGTH_SHORT).show();
 				for(int i=0; i<m_arrJokeList.size(); i++){
 					Joke j = m_arrJokeList.get(i);
 					if(j.getRating() == Joke.DISLIKE){
@@ -313,7 +313,15 @@ public class AdvancedJokeList extends SherlockActivity {
 			// TODO Auto-generated method stub
 			switch(item.getItemId()){
 				case R.id.menu_remove:
-					mode.finish();
+					Joke j = m_arrFilteredJokeList.get(m_selectedId);
+					for(int i=0;i<m_arrJokeList.size();i++){
+						if(j == m_arrJokeList.get(i)){
+							m_arrJokeList.remove(i);
+							break;
+						}
+					}
+					m_arrFilteredJokeList.remove(m_selectedId);
+					m_jokeAdapter.notifyDataSetChanged();
 					return true;
 				default:
 					return false;
